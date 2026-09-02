@@ -26,9 +26,9 @@ export const site = {
 export const contact = {
   email: "masjidbilaal2022@gmail.com",
   /**
-   * NEEDS-CONFIRMATION: this is the number given for Zelle donations.
-   * The demo site footer showed (502) 876-6150 instead. Confirm which
-   * number the public should call before launch.
+   * Confirmed by the masjid as the public number. It is the same number
+   * used for Zelle donations, so keep the two in sync if it ever changes
+   * (the Zelle copy is in `donations.zelle` below).
    */
   phone: "+1 (502) 457-9902",
   phoneHref: "tel:+15024579902",

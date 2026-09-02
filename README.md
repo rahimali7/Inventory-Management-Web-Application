@@ -106,7 +106,6 @@ before launch. See `_source` at the top of `src/data/verses.json`.
 Items marked `NEEDS-CONFIRMATION`, `PLACEHOLDER`, or `TODO` in `src/data/`
 must be resolved first. The significant ones:
 
-- [ ] Confirm the public phone number (two different numbers are in play)
 - [ ] Add ZIP codes for both locations
 - [ ] Publish the Masjidal widget and paste its embed markup into `prayer.ts`
 - [ ] Real Jumu'ah khutbah and prayer times
