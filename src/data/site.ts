@@ -1,0 +1,110 @@
+/**
+ * Central site configuration.
+ *
+ * Everything a non-developer is likely to change lives in this folder.
+ * Items marked NEEDS-CONFIRMATION were taken from the Base44 demo
+ * screenshots and have NOT been verified with the masjid — check them
+ * before the site goes live.
+ */
+
+export const site = {
+  name: "Masjid Bilal Islamic Center",
+  shortName: "Masjid Bilal",
+  tagline: "Serving Louisville with faith, knowledge, and compassion.",
+  description:
+    "Masjid Bilal Islamic Center serves the Muslim community of Louisville, Kentucky with daily prayers, Qur'anic education, youth programs, and community services. Open 24 hours a day.",
+  // TODO: replace with the real production domain once it is pointed at the site.
+  url: "https://bilalislamiccenter.org",
+  locale: "en-US",
+  city: "Louisville",
+  region: "KY",
+  regionName: "Kentucky",
+  country: "US",
+  founded: 2013,
+} as const;
+
+export const contact = {
+  email: "masjidbilaal2022@gmail.com",
+  /**
+   * NEEDS-CONFIRMATION: this is the number given for Zelle donations.
+   * The demo site footer showed (502) 876-6150 instead. Confirm which
+   * number the public should call before launch.
+   */
+  phone: "+1 (502) 457-9902",
+  phoneHref: "tel:+15024579902",
+  hours: "Open 24 hours, every day",
+} as const;
+
+export const donations = {
+  zelle: {
+    label: "Zelle",
+    phone: "(502) 457-9902",
+    /** Digits only — used for the copy-to-clipboard button. */
+    raw: "5024579902",
+    recipientName: "Masjid Bilal Islamic Center",
+  },
+  /** Additional processors will be added once accounts are set up. */
+  comingSoon: ["Credit / debit card", "Apple Pay", "Bank transfer (ACH)"],
+  /**
+   * NEEDS-CONFIRMATION: do not advertise tax-deductible receipts until the
+   * masjid's 501(c)(3) determination letter and EIN are confirmed.
+   */
+  taxDeductible: null as null | { ein: string },
+} as const;
+
+export type Location = {
+  slug: string;
+  name: string;
+  street: string;
+  city: string;
+  region: string;
+  postalCode: string | null;
+  established: number;
+  blurb: string;
+};
+
+export const locations: Location[] = [
+  {
+    slug: "west",
+    name: "Masjid Bilal West",
+    street: "1701 Dumesnil Street",
+    city: "Louisville",
+    region: "KY",
+    postalCode: null, // TODO: add ZIP for maps + structured data
+    established: 2013,
+    blurb:
+      "Our first permanent home, purchased in 2013 — a house for prayer, Qur'anic study, and the ties that hold a community together.",
+  },
+  {
+    slug: "south-side",
+    name: "Masjid Bilal South Side",
+    street: "6200 S 3rd Street",
+    city: "Louisville",
+    region: "KY",
+    postalCode: null, // TODO: add ZIP for maps + structured data
+    established: 2021,
+    blurb:
+      "Opened in 2021 as families moved south — a larger facility built around children, youth, and family programming.",
+  },
+];
+
+export type NavItem = { label: string; href: string };
+
+export const primaryNav: NavItem[] = [
+  { label: "About", href: "/about" },
+  { label: "Prayer Times", href: "/prayer-times" },
+  { label: "Programs", href: "/programs" },
+  { label: "Events", href: "/events" },
+  { label: "Leadership", href: "/leadership" },
+  { label: "Contact", href: "/contact" },
+];
+
+export const footerServices: NavItem[] = [
+  { label: "Nikah Services", href: "/contact#nikah" },
+  { label: "Funeral & Janazah", href: "/contact#janazah" },
+  { label: "Shahada & New Muslims", href: "/contact#shahada" },
+  { label: "Community Counseling", href: "/contact#counseling" },
+];
+
+/** TODO: add real social profiles, or delete the ones that do not exist. */
+export const social: NavItem[] = [];

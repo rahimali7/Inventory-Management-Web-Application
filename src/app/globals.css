@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Masjid Bilal Islamic Center — design tokens
+   Brand colours are sampled directly from the official logo artwork:
+     navy    #001E42   (emblem outline + wordmark)
+     crimson #7D0223   (star points + rule)
+     gold    #D4A75F   (inner frame + crescent)
+   ------------------------------------------------------------------ */
+@theme {
+  /* Navy — primary brand colour */
+  --color-navy-50:  #eef2f8;
+  --color-navy-100: #d6e0ee;
+  --color-navy-200: #a9bcd8;
+  --color-navy-300: #7492bd;
+  --color-navy-400: #3f639b;
+  --color-navy-500: #1b3f74;
+  --color-navy-600: #0b2c5b;
+  --color-navy-700: #04244d;
+  --color-navy-800: #001e42;
+  --color-navy-900: #001631;
+  --color-navy-950: #000d1f;
+
+  /* Crimson — accent, used sparingly */
+  --color-crimson-50:  #fdf3f5;
+  --color-crimson-100: #fae1e6;
+  --color-crimson-200: #f3bcc7;
+  --color-crimson-300: #e5879b;
+  --color-crimson-400: #cf4f6c;
+  --color-crimson-500: #ad2647;
+  --color-crimson-600: #931633;
+  --color-crimson-700: #7d0223;
+  --color-crimson-800: #66021d;
+  --color-crimson-900: #4d0116;
+
+  /* Gold — highlights, rules, eyebrows */
+  --color-gold-50:  #fdfaf3;
+  --color-gold-100: #f8f0dd;
+  --color-gold-200: #f0e0bc;
+  --color-gold-300: #e1be89;
+  --color-gold-400: #d4a75f;
+  --color-gold-500: #c08f42;
+  --color-gold-600: #a17335;
+  --color-gold-700: #7d582a;
+  --color-gold-800: #5c4020;
+
+  /* Sand — page grounds */
+  --color-sand-50:  #fcfaf5;
+  --color-sand-100: #f7f2e7;
+  --color-sand-200: #efe7d5;
+  --color-sand-300: #e3d7bd;
+
+  --color-ink: #10151f;
+  --color-muted: #5b6474;
+
+  /* Type */
+  --font-display: var(--font-playfair), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-roman: var(--font-cinzel), Georgia, serif;
+  --font-arabic: var(--font-amiri), "Traditional Arabic", serif;
+
+  /* Motion — one shared easing curve keeps every transition on-brand */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* offset for the sticky header when jumping to an anchor */
+    scroll-padding-top: 6.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    /* Horizontal reveal animations start off-position by a few pixels, which
+       would otherwise widen the page before they animate in. `clip` (unlike
+       `hidden`) does not create a scroll container, so sticky positioning and
+       scroll-driven animation still work. */
+    overflow-x: clip;
+    background-color: var(--color-sand-50);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "kern", "liga", "calt";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-300);
+    color: var(--color-navy-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* Arabic / Qur'anic text needs extra leading so diacritics never collide */
+  [lang="ar"] {
+    font-family: var(--font-arabic);
+    direction: rtl;
+    line-height: 2.1;
+    font-feature-settings: "kern", "liga", "calt", "ccmp", "mark", "mkmk";
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty { text-wrap: pretty; }
+
+  /* Small-caps eyebrow used above section headings */
+  .eyebrow {
+    font-family: var(--font-roman);
+    font-size: 0.6875rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold-600);
+  }
+
+  /* Thin gold hairline that echoes the logo's inner frame */
+  .rule-gold {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-gold-400) 15%,
+      var(--color-gold-400) 85%,
+      transparent
+    );
+  }
+}
+
+/* Anyone who has asked their OS to reduce motion gets a still site.
+   Every animated component also checks this in JS. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
