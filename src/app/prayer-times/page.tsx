@@ -6,7 +6,13 @@ import { PageHero } from "@/components/ui/PageHero";
 import { VerseBand } from "@/components/sections/VerseBand";
 import { Reveal } from "@/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/components/motion/Stagger";
-import { jumuah, prayerConfig, prayerFallback } from "@/data/prayer";
+import { MasjidalWidget } from "@/components/sections/MasjidalWidget";
+import {
+  hasPrayerWidget,
+  jumuah,
+  prayerConfig,
+  prayerFallback,
+} from "@/data/prayer";
 import { contact } from "@/data/site";
 
 export const metadata: Metadata = {
@@ -25,17 +31,11 @@ export default function PrayerTimesPage() {
 
       <Section tone="white" size="compact">
         <Container>
-          {prayerConfig.embedUrl ? (
+          {/* Live Masjidal widget once configured; otherwise the manually
+              maintained table, so the page is never empty. */}
+          {hasPrayerWidget() ? (
             <Reveal from="up">
-              <div className="overflow-hidden rounded-2xl border border-navy-800/10 bg-sand-50">
-                <iframe
-                  src={prayerConfig.embedUrl}
-                  title="Prayer times"
-                  height={prayerConfig.embedHeight}
-                  className="w-full"
-                  loading="lazy"
-                />
-              </div>
+              <MasjidalWidget />
             </Reveal>
           ) : (
             <PrayerTable />

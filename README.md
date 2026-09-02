@@ -10,10 +10,22 @@ cheap to host.
 
 ```bash
 npm install
-npm run dev      # http://localhost:3000
-npm run build    # production build
-npm run lint     # eslint
+npm run dev        # http://localhost:3000
+npm run build      # production build
+npm run lint       # eslint
+npm run typecheck  # next typegen && tsc --noEmit
 ```
+
+`typecheck` runs `next typegen` first on purpose: `LayoutProps` and friends are
+*generated* types, so `tsc` fails on a clean checkout without it.
+
+Note that Next 16 removed `next lint`, and `next build` no longer runs linting
+— so lint is genuinely a separate step, not a redundant one.
+
+## Continuous integration
+
+`.github/workflows/ci.yml` runs typecheck, lint, and build on every pull
+request and on pushes to `main`. All three must pass.
 
 ## Brand
 
@@ -48,11 +60,34 @@ component code needs to be touched.
 | `timeline.ts` | The masjid's history |
 | `verses.json` | Qur'anic verses used across the site |
 
-### Prayer times
+### Prayer times (Masjidal)
 
-The masjid uses an external prayer-time service. Paste the embed URL from that
-service into `embedUrl` in `src/data/prayer.ts` and the site will render the
-live widget. Until then it shows the manual table in the same file.
+The masjid uses [Masjidal](https://masjidal.com). Their install is two parts,
+and only the first is done:
+
+1. **Widget library** — already wired. `MasjidalWidget.tsx` loads
+   `widgets.masjidal.com/timetable/v0/widget.js` on the prayer-times page
+   only, so other pages don't pay for a third-party script.
+2. **Widget markup** — publish a widget in the Masjidal platform, press
+   **Embed**, and paste the markup into `embedHtml` in `src/data/prayer.ts`.
+
+Until step 2 is done, the page shows the manually maintained table in the same
+file, so it is never empty.
+
+`embedHtml` is injected as raw HTML. That is safe *because it comes from a
+repository file only developers can edit* — never wire that field to user
+input, request data, or a URL parameter.
+
+### Environment variables
+
+Copy `.env.example` to `.env.local` (gitignored) and fill in, or set the values
+in your host's environment settings.
+
+⚠️ **This repository is public.** Never commit an API key or secret to it.
+Anything prefixed `NEXT_PUBLIC_` is inlined into the browser bundle at build
+time and is visible to every visitor — correct for a publishable widget key,
+wrong for a secret one. A secret must be read server-side only, without that
+prefix.
 
 ### Qur'anic verses
 
@@ -73,7 +108,7 @@ must be resolved first. The significant ones:
 
 - [ ] Confirm the public phone number (two different numbers are in play)
 - [ ] Add ZIP codes for both locations
-- [ ] Real prayer times, or the prayer-service embed URL
+- [ ] Publish the Masjidal widget and paste its embed markup into `prayer.ts`
 - [ ] Real Jumu'ah khutbah and prayer times
 - [ ] Real program schedules, or delete programs not offered
 - [ ] Real leadership names, roles, and biographies
