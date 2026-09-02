@@ -106,7 +106,7 @@ before launch. See `_source` at the top of `src/data/verses.json`.
 Items marked `NEEDS-CONFIRMATION`, `PLACEHOLDER`, or `TODO` in `src/data/`
 must be resolved first. The significant ones:
 
-- [ ] Add ZIP codes for both locations
+- [ ] Add the ZIP for Masjid Bilal West (South Side is 40214)
 - [ ] Publish the Masjidal widget and paste its embed markup into `prayer.ts`
 - [ ] Real Jumu'ah khutbah and prayer times
 - [ ] Real program schedules, or delete programs not offered

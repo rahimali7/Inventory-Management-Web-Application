@@ -70,7 +70,10 @@ export const locations: Location[] = [
     street: "1701 Dumesnil Street",
     city: "Louisville",
     region: "KY",
-    postalCode: null, // TODO: add ZIP for maps + structured data
+    // TODO: ZIP still needed for maps + structured data. Not guessed —
+    // a wrong postal code would be published into schema.org data and
+    // map links. Ask the masjid.
+    postalCode: null,
     established: 2013,
     blurb:
       "Our first permanent home, purchased in 2013 — a house for prayer, Qur'anic study, and the ties that hold a community together.",
@@ -81,7 +84,7 @@ export const locations: Location[] = [
     street: "6200 S 3rd Street",
     city: "Louisville",
     region: "KY",
-    postalCode: null, // TODO: add ZIP for maps + structured data
+    postalCode: "40214", // confirmed by the masjid
     established: 2021,
     blurb:
       "Opened in 2021 as families moved south — a larger facility built around children, youth, and family programming.",
