@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { motion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
 
 type Direction = "up" | "down" | "left" | "right" | "none";
@@ -28,7 +28,9 @@ export type RevealProps = {
 
 /**
  * Fade-and-rise on scroll into view. The workhorse of the site's motion.
- * Honours prefers-reduced-motion by rendering the content statically.
+ *
+ * Reduced motion is handled by <MotionProvider> at the root, not by
+ * rendering different markup here — see the note in that component.
  */
 export function Reveal({
   children,
@@ -40,18 +42,7 @@ export function Reveal({
   repeat = false,
   as = "div",
 }: RevealProps) {
-  const reduced = useReducedMotion();
   const Component = motion[as];
-
-  if (reduced) {
-    const Static = as;
-    return (
-      <Static className={className} id={id}>
-        {children}
-      </Static>
-    );
-  }
-
   const { x, y } = OFFSET[from];
   const variants: Variants = {
     hidden: { opacity: 0, x, y },

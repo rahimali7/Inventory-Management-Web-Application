@@ -52,12 +52,13 @@ component code needs to be touched.
 | File | What it controls |
 | --- | --- |
 | `site.ts` | Name, contact details, Zelle number, locations, navigation |
+| — | Set `featured: true` on a location to list it in the footer, contact page and search-engine data. Both masjids always appear in the history. |
 | `prayer.ts` | Prayer-time embed URL, fallback table, Jumu'ah times |
 | `programs.ts` | Classes and programs |
 | `events.ts` | Upcoming events (past ones move to the archive automatically) |
 | `services.ts` | Nikah, janazah, shahada, counseling |
 | `leadership.ts` | Imams, board, committees |
-| `timeline.ts` | The masjid's history |
+| `timeline.ts` | The masjid's history (drives the animated timeline) |
 | `verses.json` | Qur'anic verses used across the site |
 
 ### Prayer times (Masjidal)
@@ -106,7 +107,6 @@ before launch. See `_source` at the top of `src/data/verses.json`.
 Items marked `NEEDS-CONFIRMATION`, `PLACEHOLDER`, or `TODO` in `src/data/`
 must be resolved first. The significant ones:
 
-- [ ] Add the ZIP for Masjid Bilal West (South Side is 40214)
 - [ ] Publish the Masjidal widget and paste its embed markup into `prayer.ts`
 - [ ] Real Jumu'ah khutbah and prayer times
 - [ ] Real program schedules, or delete programs not offered

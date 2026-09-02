@@ -3,7 +3,8 @@ import { Amiri, Cinzel, Inter, Playfair_Display } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
-import { contact, locations, site } from "@/data/site";
+import { MotionProvider } from "@/components/motion/MotionProvider";
+import { contact, featuredLocations, site } from "@/data/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -62,7 +63,7 @@ function StructuredData() {
     email: contact.email,
     telephone: contact.phone,
     openingHours: "Mo-Su 00:00-24:00",
-    address: locations.map((loc) => ({
+    address: featuredLocations.map((loc) => ({
       "@type": "PostalAddress",
       streetAddress: loc.street,
       addressLocality: loc.city,
@@ -93,12 +94,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <ScrollProgress />
-        <Header />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <Footer />
+        <MotionProvider>
+          <ScrollProgress />
+          <Header />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </MotionProvider>
         <StructuredData />
       </body>
     </html>

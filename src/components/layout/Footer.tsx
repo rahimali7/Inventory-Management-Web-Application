@@ -2,7 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Diamond } from "@/components/ui/StarFrame";
-import { contact, footerServices, locations, primaryNav, site } from "@/data/site";
+import {
+  contact,
+  featuredLocations,
+  footerServices,
+  primaryNav,
+  site,
+} from "@/data/site";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -83,13 +89,14 @@ export function Footer() {
               <li className="text-sand-200/80">{contact.hours}</li>
             </ul>
 
-            <h2 className="eyebrow mt-9 text-gold-400">Locations</h2>
+            <h2 className="eyebrow mt-9 text-gold-400">Visit</h2>
             <ul className="mt-6 space-y-4 text-sm">
-              {locations.map((loc) => (
+              {featuredLocations.map((loc) => (
                 <li key={loc.slug} className="text-sand-200/80">
                   <span className="block text-sand-50">{loc.name}</span>
                   <span className="block">
                     {loc.street}, {loc.city}, {loc.region}
+                    {loc.postalCode ? ` ${loc.postalCode}` : ""}
                   </span>
                 </li>
               ))}

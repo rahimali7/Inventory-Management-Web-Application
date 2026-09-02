@@ -1,10 +1,15 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 
 /**
  * Reveals a headline word by word, each word rising from behind a mask.
  * Used only for the largest display headings — overusing it cheapens it.
+ *
+ * The markup is identical regardless of motion preference. Visitors who ask
+ * for reduced motion have the travel suppressed by <MotionProvider>, not by
+ * rendering something different here: branching markup on the client-only
+ * `useReducedMotion()` hook is what causes hydration mismatches.
  */
 export function SplitWords({
   text,
@@ -17,10 +22,7 @@ export function SplitWords({
   delay?: number;
   stagger?: number;
 }) {
-  const reduced = useReducedMotion();
   const words = text.split(" ");
-
-  if (reduced) return <span className={className}>{text}</span>;
 
   return (
     <span className={className}>
@@ -42,7 +44,7 @@ export function SplitWords({
             }}
           >
             {word}
-            {i < words.length - 1 ? " " : ""}
+            {i < words.length - 1 ? " " : ""}
           </motion.span>
         </span>
       ))}

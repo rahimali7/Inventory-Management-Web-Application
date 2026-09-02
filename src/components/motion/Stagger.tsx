@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { motion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
 
 const container = (stagger: number, delay: number): Variants => ({
@@ -31,13 +31,7 @@ export function Stagger({
   delay?: number;
   as?: "div" | "ul" | "ol";
 }) {
-  const reduced = useReducedMotion();
   const Component = motion[as];
-
-  if (reduced) {
-    const Static = as;
-    return <Static className={className}>{children}</Static>;
-  }
 
   return (
     <Component
@@ -63,17 +57,7 @@ export function StaggerItem({
   id?: string;
   as?: "div" | "li" | "article";
 }) {
-  const reduced = useReducedMotion();
   const Component = motion[as];
-
-  if (reduced) {
-    const Static = as;
-    return (
-      <Static className={className} id={id}>
-        {children}
-      </Static>
-    );
-  }
 
   return (
     <Component className={className} id={id} variants={item}>

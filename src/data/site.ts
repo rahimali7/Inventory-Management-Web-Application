@@ -61,6 +61,17 @@ export type Location = {
   postalCode: string | null;
   established: number;
   blurb: string;
+  /**
+   * Both masjids are active. `featured` controls which one the site leads
+   * with for "come here" surfaces — the footer, the contact page, and the
+   * schema.org data search engines and maps read.
+   *
+   * Right now only the newer South Side centre is featured, at the masjid's
+   * request. Flip this to true for West to list both again; nothing else
+   * needs to change. West still appears in the history timeline either way,
+   * because it is part of the story regardless.
+   */
+  featured: boolean;
 };
 
 export const locations: Location[] = [
@@ -70,13 +81,11 @@ export const locations: Location[] = [
     street: "1701 Dumesnil Street",
     city: "Louisville",
     region: "KY",
-    // TODO: ZIP still needed for maps + structured data. Not guessed —
-    // a wrong postal code would be published into schema.org data and
-    // map links. Ask the masjid.
-    postalCode: null,
+    postalCode: "40210", // confirmed by the masjid
     established: 2013,
     blurb:
       "Our first permanent home, purchased in 2013 — a house for prayer, Qur'anic study, and the ties that hold a community together.",
+    featured: false,
   },
   {
     slug: "south-side",
@@ -88,8 +97,12 @@ export const locations: Location[] = [
     established: 2021,
     blurb:
       "Opened in 2021 as families moved south — a larger facility built around children, youth, and family programming.",
+    featured: true,
   },
 ];
+
+/** The locations the site actively directs visitors to. See `featured`. */
+export const featuredLocations: Location[] = locations.filter((l) => l.featured);
 
 export type NavItem = { label: string; href: string };
 
