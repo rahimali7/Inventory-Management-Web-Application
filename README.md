@@ -44,6 +44,12 @@ and **Amiri** (Arabic and Qur'anic text).
 
 Logo files live in `public/brand/`.
 
+## Deploying and updating
+
+See **[DEPLOYING.md](DEPLOYING.md)** for how to put the site online for free
+and how to update events and other content from github.com without installing
+anything.
+
 ## Editing content
 
 Everything a non-developer would want to change lives in `src/data/`. No
