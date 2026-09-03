@@ -3,7 +3,8 @@
 Two separate things, and the second is the one you'll do often:
 
 1. **Deploy once** — connect the repo to a host. After that it is automatic.
-2. **Update content** — edit a file on GitHub. The site rebuilds itself.
+2. **See and test it** — Vercel gives every branch its own preview URL.
+3. **Update content** — edit a file on GitHub. The site rebuilds itself.
 
 ---
 
@@ -81,7 +82,89 @@ strongest free alternative and moving is a small change.
 
 ---
 
-## 2. Updating content
+## 2. Seeing and testing the site
+
+### The easy way: Vercel preview links
+
+Once the repo is connected to Vercel (step 1 above), Vercel builds **every
+branch and every pull request automatically** and gives each one its own URL.
+
+That means PR #1 gets a live preview link posted right on the pull request, and
+every time you edit a file the preview updates. Nothing to install, and it is
+the real site — the same build that would go live.
+
+This is also the safest way to check a content change before it reaches
+visitors: edit on a branch, look at the preview, then merge.
+
+### The local way: run it on your own computer
+
+Only needed if you want to work offline or make code changes.
+
+1. Install [Node.js](https://nodejs.org) version 20 or newer (the LTS build).
+2. Download the code — on the repo page, **Code → Download ZIP**, or if you
+   use git: `git clone https://github.com/rahimali7/Inventory-Management-Web-Application.git`
+3. In a terminal, inside the project folder:
+
+```bash
+npm install     # first time only, takes a minute
+npm run dev
+```
+
+4. Open <http://localhost:3000>.
+
+Edits to files under `src/data/` appear in the browser immediately.
+
+To check exactly what visitors would get, build the production version instead:
+
+```bash
+npm run build
+npm run start   # then open http://localhost:3000
+```
+
+### What to click through
+
+The automated checks catch broken code, not wrong content. These are the things
+worth a human eye:
+
+- [ ] Every link in the top navigation opens the right page
+- [ ] **Donate** — pick an amount, switch to Monthly, choose a fund; the Zelle
+      number, recipient and memo update, and both **Copy** buttons work
+- [ ] The phone number opens the dialer and the email address opens mail
+- [ ] **Contact** — "Open in Maps" lands on the right building
+- [ ] **About** — scroll slowly; the gold line should fill and each milestone
+      light up as you reach it
+- [ ] On a phone: the menu button opens and closes, and nothing is cut off at
+      the right edge
+- [ ] **Prayer Times** shows the fallback table — expected until the Masjidal
+      embed markup is added
+
+### What has already been verified
+
+Against a production build in a real browser:
+
+- All 8 pages load with no JavaScript or console errors
+- Nothing overflows sideways at 320, 390, 768, 1024, 1440 or 1920px wide
+- The same holds with the operating system set to "reduce motion"
+- Typecheck, lint and build all pass from a clean install
+
+That says the site *works*. It does not say the content is *right* — the
+placeholder programs, Jumu'ah times and leadership names still need real
+values, and no automated check can know that.
+
+### Reading the automated check
+
+Every commit gets a mark on GitHub:
+
+- **Green ✓** — the site builds and will deploy.
+- **Red ✗** — something is broken. Click it to see which step failed. The
+  currently published site is unaffected and stays up.
+
+A green check means the code is valid. It does not mean a prayer time is
+correct.
+
+---
+
+## 3. Updating content
 
 **You do not need to install anything.** Everything editable lives in
 `src/data/`, and GitHub lets you edit files in the browser.
