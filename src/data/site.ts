@@ -89,6 +89,15 @@ export const locations: Location[] = [
 /** Convenience for the many places that just want the one address. */
 export const primaryLocation: Location = locations[0];
 
+/** The masjid's WhatsApp community group. */
+export const whatsapp = {
+  groupName: "Masjid Bilal Southside",
+  inviteUrl:
+    "https://chat.whatsapp.com/JvfajXfKlYD5utT5pVC54r?s=cl&p=i&mlu=4&ilr=4",
+  /** Cropped from the invite QR supplied by the masjid. */
+  qrImage: "/img/whatsapp-qr.jpg",
+} as const;
+
 export type NavItem = { label: string; href: string };
 
 export const primaryNav: NavItem[] = [
@@ -97,6 +106,7 @@ export const primaryNav: NavItem[] = [
   { label: "Programs", href: "/programs" },
   { label: "Events", href: "/events" },
   { label: "Leadership", href: "/leadership" },
+  { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ];
 

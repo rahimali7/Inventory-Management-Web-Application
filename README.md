@@ -66,6 +66,7 @@ component code needs to be touched.
 | `leadership.ts` | Imams, board, committees |
 | `timeline.ts` | The masjid's history (drives the animated timeline) |
 | `verses.json` | Qur'anic verses used across the site |
+| `faq.ts` | Questions the assistant answers, and the FAQ page |
 
 ### Prayer times (Masjidal)
 
@@ -115,7 +116,6 @@ must be resolved first. The significant ones:
 
 - [ ] Publish the Masjidal widget and paste its embed markup into `prayer.ts`
 - [ ] Real Jumu'ah khutbah and prayer times
-- [ ] Real program schedules, or delete programs not offered
 - [ ] Real leadership names, roles, and biographies
 - [ ] Confirm 501(c)(3) status before making any tax-deductibility claim
 - [ ] Verify Qur'an translation attribution

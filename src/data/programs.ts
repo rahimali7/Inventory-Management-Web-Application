@@ -1,118 +1,185 @@
 /**
- * Programs and classes.
+ * Programs and classes, as described by the masjid.
  *
- * PLACEHOLDER CONTENT — every entry below is a reasonable guess based on
- * what the masjid appears to offer. Replace the details (days, times, ages,
- * instructors) with the real schedule before launch, and delete anything
- * that is not actually offered.
+ * `icon` is a key resolved in src/components/ui/ProgramIcon.tsx — add the
+ * mapping there if you introduce a new one.
+ * `status` marks a programme the masjid has announced but not yet started;
+ * those render with a "Coming soon" badge instead of a schedule.
  */
+
+export type ProgramStatus = "running" | "coming-soon";
 
 export type Program = {
   slug: string;
   title: string;
+  /** Small-caps label in the corner of the card. */
+  eyebrow: string;
+  icon: string;
   audience: string;
   schedule: string;
   summary: string;
-  /** Longer copy for the program detail card. */
-  detail: string;
-  category: "quran" | "youth" | "adults" | "new-muslims" | "arabic";
+  status: ProgramStatus;
+  category: "quran" | "study" | "youth" | "community" | "support";
 };
 
 export const programs: Program[] = [
   {
-    slug: "quran-memorization",
-    title: "Qur'an Memorization (Hifz)",
-    audience: "Ages 6 and up",
-    schedule: "PLACEHOLDER — confirm days and times",
+    slug: "tahfiz-part-time",
+    title: "Qur'an Memorization — Part-time",
+    eyebrow: "Memorize",
+    icon: "book-open",
+    audience: "All age groups",
+    schedule: "Saturdays & Sundays, 10:00 AM – 2:00 PM",
     summary:
-      "Structured memorization with qualified huffaz, paced to each student rather than to a class average.",
-    detail:
-      "Students work through the Qur'an at their own pace under the supervision of qualified huffaz, with regular revision cycles and one-on-one recitation. Placement is by assessment, not by age.",
+      "Weekend Tahfiz for part-time students, open to every age group, working through memorization at a pace that fits each student.",
+    status: "running",
     category: "quran",
   },
   {
-    slug: "quran-recitation",
-    title: "Tajweed & Recitation",
+    slug: "tahfiz-full-time",
+    title: "Qur'an Memorization — Full-time",
+    eyebrow: "Commit",
+    icon: "book-marked",
+    audience: "Full-time students",
+    schedule: "Five days a week",
+    summary:
+      "An intensive five-day programme for students devoting themselves to memorizing the Qur'an.",
+    status: "running",
+    category: "quran",
+  },
+  {
+    slug: "quran-online",
+    title: "Online Qur'an Classes",
+    eyebrow: "From home",
+    icon: "video",
     audience: "All ages",
-    schedule: "PLACEHOLDER — confirm days and times",
+    schedule: "Held over Zoom — contact the masjid to join",
     summary:
-      "The rules of recitation taught from the ground up, from letter articulation to fluent reading.",
-    detail:
-      "Beginning with the correct articulation points of each letter and building toward fluent, rule-observant recitation. Separate tracks for children and adults.",
+      "Qur'an instruction over Zoom for anyone who cannot attend in person.",
+    status: "running",
     category: "quran",
   },
   {
-    slug: "weekend-school",
-    title: "Weekend Islamic School",
-    audience: "Ages 5–14",
-    schedule: "PLACEHOLDER — confirm days and times",
+    slug: "quran-adults",
+    title: "Qur'an Classes for Adults",
+    eyebrow: "Begin",
+    icon: "graduation-cap",
+    audience: "Adults",
+    schedule: "Starting soon",
     summary:
-      "Qur'an, aqeedah, seerah, and Islamic manners in a structured weekly curriculum.",
-    detail:
-      "A full weekend curriculum covering Qur'an, basic beliefs, the life of the Prophet ﷺ, and Islamic character, taught in age-grouped classes.",
-    category: "youth",
+      "A dedicated adult track, for those beginning or returning to the Qur'an later in life. Starting soon, insha'Allah.",
+    status: "coming-soon",
+    category: "quran",
   },
   {
-    slug: "arabic-language",
+    slug: "seerah",
+    title: "Seerah",
+    eyebrow: "Follow",
+    icon: "compass",
+    audience: "All welcome",
+    schedule: "Saturdays & Sundays, after Fajr",
+    summary:
+      "The life of the Prophet Muhammad ﷺ, studied after Fajr on weekend mornings.",
+    status: "running",
+    category: "study",
+  },
+  {
+    slug: "islamic-studies",
+    title: "Islamic Studies",
+    eyebrow: "Learn",
+    icon: "scroll-text",
+    audience: "All ages",
+    schedule: "Saturdays & Sundays",
+    summary:
+      "Weekend classes covering the foundations of the religion — belief, worship, and character.",
+    status: "running",
+    category: "study",
+  },
+  {
+    slug: "hadith",
+    title: "Hadith Class",
+    eyebrow: "Reflect",
+    icon: "quote",
+    audience: "All welcome",
+    schedule: "Every Sunday, after Maghrib",
+    summary:
+      "One hadith each session, read and explained — a short, steady weekly study.",
+    status: "running",
+    category: "study",
+  },
+  {
+    slug: "monthly-halaqah",
+    title: "Monthly Halaqah",
+    eyebrow: "Gather",
+    icon: "users",
+    audience: "The whole community",
+    schedule: "Once a month",
+    summary:
+      "A monthly gathering for reminder and discussion, open to the whole community.",
+    status: "running",
+    category: "community",
+  },
+  {
+    slug: "arabic",
     title: "Arabic Language",
+    eyebrow: "Understand",
+    icon: "languages",
     audience: "Teens and adults",
-    schedule: "PLACEHOLDER — confirm days and times",
+    schedule: "Starting soon",
     summary:
-      "Classical Arabic taught for comprehension of the Qur'an and the Sunnah.",
-    detail:
-      "Grammar, vocabulary, and reading built specifically toward understanding the Qur'an and hadith rather than conversational fluency. Beginner and intermediate levels.",
-    category: "arabic",
-  },
-  {
-    slug: "youth-halaqa",
-    title: "Youth Halaqa",
-    audience: "Ages 13–18",
-    schedule: "PLACEHOLDER — confirm days and times",
-    summary:
-      "A weekly circle where young Muslims work through faith, identity, and the questions that actually come up.",
-    detail:
-      "An open discussion circle for teenagers covering belief, character, and the practical questions of growing up Muslim in Louisville. Separate sessions for brothers and sisters.",
-    category: "youth",
+      "Arabic taught for understanding the Qur'an and the Sunnah rather than conversation. Starting soon, insha'Allah.",
+    status: "coming-soon",
+    category: "study",
   },
   {
     slug: "new-muslim",
     title: "New Muslim Foundations",
+    eyebrow: "Welcome",
+    icon: "heart-handshake",
     audience: "New Muslims and those exploring Islam",
-    schedule: "PLACEHOLDER — confirm days and times",
+    schedule: "Every Friday, after Jumu'ah prayer",
     summary:
-      "A patient, judgement-free starting point: purification, prayer, and the essentials of belief.",
-    detail:
-      "A one-on-one and small-group program covering wudu, salah, the pillars of faith, and the first steps of practice — at whatever pace is comfortable. No prior knowledge assumed.",
-    category: "new-muslims",
+      "A patient, judgement-free starting point: purification, prayer, and the essentials of belief, at whatever pace is comfortable.",
+    status: "running",
+    category: "support",
   },
   {
-    slug: "sisters-circle",
-    title: "Sisters' Circle",
-    audience: "Women of all ages",
-    schedule: "PLACEHOLDER — confirm days and times",
+    slug: "marriage-counseling",
+    title: "Marriage Counseling",
+    eyebrow: "Find clarity",
+    icon: "message-circle",
+    audience: "Couples and families",
+    schedule: "By appointment",
     summary:
-      "Regular study and community for the women of the masjid.",
-    detail:
-      "A recurring gathering combining Qur'an study, discussion, and community support, organized by and for the sisters of the congregation.",
-    category: "adults",
-  },
-  {
-    slug: "tafsir",
-    title: "Weekly Tafsir",
-    audience: "Adults",
-    schedule: "PLACEHOLDER — confirm days and times",
-    summary:
-      "Working through the Qur'an verse by verse with context and commentary.",
-    detail:
-      "A sustained study of the Qur'an in order, drawing on classical commentary to unpack meaning, context, and application.",
-    category: "adults",
+      "Confidential sessions with the masjid's leadership on marriage and family matters, arranged by appointment.",
+    status: "running",
+    category: "support",
   },
 ];
 
-export const programCategories: { id: Program["category"]; label: string }[] = [
-  { id: "quran", label: "Qur'an" },
-  { id: "youth", label: "Children & Youth" },
-  { id: "arabic", label: "Arabic" },
-  { id: "adults", label: "Adults" },
-  { id: "new-muslims", label: "New Muslims" },
+export const programCategories: {
+  id: Program["category"];
+  label: string;
+  blurb: string;
+}[] = [
+  {
+    id: "quran",
+    label: "Qur'an",
+    blurb: "Memorization and recitation, in person and online.",
+  },
+  {
+    id: "study",
+    label: "Islamic Studies",
+    blurb: "Seerah, hadith, foundations, and the Arabic behind them.",
+  },
+  {
+    id: "community",
+    label: "Community",
+    blurb: "Gatherings that bring the congregation together.",
+  },
+  {
+    id: "support",
+    label: "Support",
+    blurb: "Guidance for new Muslims and for families.",
+  },
 ];
