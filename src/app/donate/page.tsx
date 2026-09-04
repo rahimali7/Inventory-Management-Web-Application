@@ -22,7 +22,7 @@ export const metadata: Metadata = {
  * Do not publish impact claims that have not been verified.
  */
 const impact = [
-  { amount: "$25", detail: "Helps cover a week of utilities across both masjids" },
+  { amount: "$25", detail: "Helps cover a week of the masjid's utilities" },
   { amount: "$100", detail: "Supports a student's Qur'an education for a month" },
   { amount: "$500", detail: "Funds a community program or outreach event" },
 ];
@@ -31,9 +31,9 @@ export default function DonatePage() {
   return (
     <>
       <PageHero eyebrow="Sadaqah & Zakat" title="Support our" accent="mission">
-        Your generosity keeps both masjids open, funds our classes, and extends
-        our care to families who need it. Every contribution matters, whatever
-        its size.
+        Your generosity keeps the masjid open, funds our classes, and extends our
+        care to families who need it. Every contribution matters, whatever its
+        size.
       </PageHero>
 
       <Section tone="white" size="compact">
@@ -41,7 +41,7 @@ export default function DonatePage() {
           <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
             {/* Left: why give */}
             <div className="min-w-0">
-              <Reveal from="right">
+              <Reveal from="up">
                 <blockquote className="border-l-2 border-gold-400 pl-6">
                   <p className="font-display text-xl italic leading-relaxed text-navy-800 text-pretty sm:text-2xl">
                     &ldquo;Who is it that would loan Allah a goodly loan so He
@@ -112,7 +112,7 @@ export default function DonatePage() {
                 viewport, and a sticky element that overflows the viewport makes
                 its own bottom (the Zelle number) unreachable. */}
             <div className="min-w-0">
-              <Reveal from="left">
+              <Reveal from="up">
                 <DonatePanel />
               </Reveal>
             </div>

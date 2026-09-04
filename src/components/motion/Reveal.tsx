@@ -3,6 +3,14 @@
 import { motion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
 
+/**
+ * Direction the content travels *from*.
+ *
+ * CAUTION with "left" and "right": the element sits offset horizontally until
+ * it scrolls into view, and on a narrow screen that offset can push past the
+ * viewport and widen the page. Only use them inside an ancestor that clips
+ * horizontally. "up" is the safe default everywhere.
+ */
 type Direction = "up" | "down" | "left" | "right" | "none";
 
 const OFFSET: Record<Direction, { x: number; y: number }> = {

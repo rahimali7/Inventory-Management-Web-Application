@@ -22,9 +22,9 @@ export function DonateCta() {
             accent="masjid"
             tone="light"
           >
-            Your generosity keeps both masjids open, funds our classes, and
-            extends our care to families who need it. Every contribution
-            matters, whatever its size.
+            Your generosity keeps the masjid open, funds our classes, and extends
+            our care to families who need it. Every contribution matters,
+            whatever its size.
           </SectionHeading>
 
           <Reveal from="up" delay={0.2}>

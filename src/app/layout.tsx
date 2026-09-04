@@ -4,7 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { MotionProvider } from "@/components/motion/MotionProvider";
-import { contact, featuredLocations, site } from "@/data/site";
+import { contact, locations, site } from "@/data/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -63,7 +63,7 @@ function StructuredData() {
     email: contact.email,
     telephone: contact.phone,
     openingHours: "Mo-Su 00:00-24:00",
-    address: featuredLocations.map((loc) => ({
+    address: locations.map((loc) => ({
       "@type": "PostalAddress",
       streetAddress: loc.street,
       addressLocality: loc.city,

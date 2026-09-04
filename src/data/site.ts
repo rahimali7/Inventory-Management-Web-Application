@@ -58,51 +58,36 @@ export type Location = {
   street: string;
   city: string;
   region: string;
-  postalCode: string | null;
+  postalCode: string;
   established: number;
   blurb: string;
-  /**
-   * Both masjids are active. `featured` controls which one the site leads
-   * with for "come here" surfaces — the footer, the contact page, and the
-   * schema.org data search engines and maps read.
-   *
-   * Right now only the newer South Side centre is featured, at the masjid's
-   * request. Flip this to true for West to list both again; nothing else
-   * needs to change. West still appears in the history timeline either way,
-   * because it is part of the story regardless.
-   */
-  featured: boolean;
 };
 
+/**
+ * The masjid the site directs visitors to.
+ *
+ * Masjid Bilal West (1701 Dumesnil Street, Louisville, KY 40210, est. 2013)
+ * is deliberately NOT listed here. It is still part of the community's story
+ * and appears in the history timeline on the About page — see
+ * src/data/timeline.ts — but the site sends people to the South Side centre
+ * only. Add it back to this array if that ever changes.
+ */
 export const locations: Location[] = [
-  {
-    slug: "west",
-    name: "Masjid Bilal West",
-    street: "1701 Dumesnil Street",
-    city: "Louisville",
-    region: "KY",
-    postalCode: "40210", // confirmed by the masjid
-    established: 2013,
-    blurb:
-      "Our first permanent home, purchased in 2013 — a house for prayer, Qur'anic study, and the ties that hold a community together.",
-    featured: false,
-  },
   {
     slug: "south-side",
     name: "Masjid Bilal South Side",
     street: "6200 S 3rd Street",
     city: "Louisville",
     region: "KY",
-    postalCode: "40214", // confirmed by the masjid
+    postalCode: "40214",
     established: 2021,
     blurb:
-      "Opened in 2021 as families moved south — a larger facility built around children, youth, and family programming.",
-    featured: true,
+      "Open around the clock for the five daily prayers, Jumu'ah, Qur'anic education, and anyone who needs a place to go.",
   },
 ];
 
-/** The locations the site actively directs visitors to. See `featured`. */
-export const featuredLocations: Location[] = locations.filter((l) => l.featured);
+/** Convenience for the many places that just want the one address. */
+export const primaryLocation: Location = locations[0];
 
 export type NavItem = { label: string; href: string };
 

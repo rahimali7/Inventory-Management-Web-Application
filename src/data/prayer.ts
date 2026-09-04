@@ -1,107 +1,136 @@
 /**
  * Prayer times.
  *
- * The masjid uses Masjidal. Two steps to go live:
- *   1. The widget library is already wired up (see `scriptSrc`).
- *   2. Publish a widget in the Masjidal platform, press "Embed", and paste
- *      the markup into `embedHtml` below.
+ * The daily adhan times on the site are CALCULATED, not typed in by hand and
+ * not fetched from a third party. They are computed in the browser with the
+ * `adhan` library (batoulapps/adhan-js, MIT) from the coordinates and
+ * calculation method below, so they are correct for every day of the year
+ * with nothing to maintain.
  *
- * Until `embedHtml` (or `embedUrl`) is set, the manual table below is shown.
- * It is a FALLBACK with PLACEHOLDER times — replace every value with the
- * masjid's real schedule, or finish the Masjidal setup, before launch.
+ * Two things are still the masjid's own decisions and must be entered here:
+ *   1. `method` and `madhab` — these must match what the masjid actually
+ *      follows, or the printed times will differ from the board by minutes.
+ *   2. `iqamah` — the congregation times. These are not astronomy; they are
+ *      set by the masjid. Leave a prayer null and the site shows a dash for
+ *      it rather than inventing a time.
  */
 
-export const prayerConfig = {
-  provider: "Masjidal",
+/** Calculation conventions supported by the adhan library. */
+export type MethodName =
+  | "MuslimWorldLeague"
+  | "Egyptian"
+  | "Karachi"
+  | "UmmAlQura"
+  | "Dubai"
+  | "MoonsightingCommittee"
+  | "NorthAmerica"
+  | "Kuwait"
+  | "Qatar"
+  | "Singapore"
+  | "Tehran"
+  | "Turkey";
 
-  /**
-   * Masjidal's widget library. Loading it is step one of their install
-   * instructions; it hydrates whatever widget markup is on the page.
-   * Loaded only on the prayer times page rather than site-wide, so other
-   * pages do not pay for a third-party script they never use.
-   */
-  scriptSrc: "https://widgets.masjidal.com/timetable/v0/widget.js",
+export type MadhabName = "shafi" | "hanafi";
 
+export const prayerConfig: {
+  coordinates: { latitude: number; longitude: number };
+  timeZone: string;
+  method: MethodName;
+  madhab: MadhabName;
+  methodLabel: string;
+} = {
   /**
-   * Step two: publish a widget in the Masjidal platform, press "Embed", and
-   * paste the markup it gives you here (the container element only — a
-   * <script> tag pasted here would not execute; the loader above is what
-   * runs). Once this is set, the site renders the live widget instead of the
-   * manual table below.
+   * Masjid Bilal South Side, 6200 S 3rd Street, Louisville, KY 40214.
    *
-   * This is injected as raw HTML. That is safe because the value comes from
-   * this repository file, which only developers can change — never from user
-   * input or a URL parameter. Do not wire this field to anything else.
+   * Approximate to the neighbourhood rather than surveyed — within a single
+   * city the difference is under a minute. To make it exact: open the address
+   * in Google Maps, right-click the building, and copy the coordinates.
    */
-  embedHtml: null as string | null,
+  coordinates: { latitude: 38.1553, longitude: -85.783 },
+
+  timeZone: "America/Kentucky/Louisville",
 
   /**
-   * Alternative to embedHtml: a plain iframe URL, if the provider gives you
-   * one instead of inline markup.
+   * ISNA, the convention most commonly followed in North America.
+   * Other options: MuslimWorldLeague, Egyptian, Karachi, UmmAlQura, Dubai,
+   * MoonsightingCommittee, Kuwait, Qatar, Singapore, Tehran, Turkey.
+   * CONFIRM this with the imam — it changes Fajr and Isha by several minutes.
    */
-  embedUrl: null as string | null,
-  embedHeight: 720,
+  method: "NorthAmerica",
 
-  /**
-   * Masjidal API key, read from the environment — deliberately NOT hardcoded,
-   * because this repository is public.
-   *
-   * Currently unused: Masjidal's documented widget install flow is just the
-   * loader script plus the markup from their "Embed" button, and references
-   * no key. This slot exists so the key has somewhere to live once we know
-   * which call actually needs it (likely their REST API rather than the
-   * widget). See .env.example.
-   */
-  apiKey: process.env.NEXT_PUBLIC_MASJIDAL_API_KEY ?? null,
+  /** "shafi" (earlier Asr) or "hanafi" (later Asr). CONFIRM with the imam. */
+  madhab: "shafi",
 
-  /**
-   * Shown under the manual table so visitors know when it last changed.
-   * Only used while the widget is not configured.
-   */
-  lastUpdated: "Not yet set",
+  /** Human-readable label shown under the table. */
+  methodLabel: "ISNA",
 };
 
-/** True once a Masjidal widget (or iframe URL) has been configured. */
-export function hasPrayerWidget(): boolean {
-  return Boolean(prayerConfig.embedHtml || prayerConfig.embedUrl);
-}
+export type PrayerKey = "fajr" | "dhuhr" | "asr" | "maghrib" | "isha";
 
-export type PrayerRow = {
+export const prayerNames: {
+  key: PrayerKey;
   name: string;
   arabic: string;
-  /** Adhan (beginning of the prayer window). */
-  adhan: string;
-  /** Iqamah / jamaah — the congregation time set by the masjid. */
-  iqamah: string;
+}[] = [
+  { key: "fajr", name: "Fajr", arabic: "الفجر" },
+  { key: "dhuhr", name: "Dhuhr", arabic: "الظهر" },
+  { key: "asr", name: "Asr", arabic: "العصر" },
+  { key: "maghrib", name: "Maghrib", arabic: "المغرب" },
+  { key: "isha", name: "Isha", arabic: "العشاء" },
+];
+
+/**
+ * Congregation times set by the masjid. PLACEHOLDER — every value is null,
+ * so the site shows a dash. Replace with real times, e.g. "6:15 AM".
+ */
+export const iqamah: Record<PrayerKey, string | null> = {
+  fajr: null,
+  dhuhr: null,
+  asr: null,
+  maghrib: null,
+  isha: null,
 };
 
-export const prayerFallback: PrayerRow[] = [
-  { name: "Fajr", arabic: "الفجر", adhan: "—", iqamah: "—" },
-  { name: "Dhuhr", arabic: "الظهر", adhan: "—", iqamah: "—" },
-  { name: "Asr", arabic: "العصر", adhan: "—", iqamah: "—" },
-  { name: "Maghrib", arabic: "المغرب", adhan: "—", iqamah: "—" },
-  { name: "Isha", arabic: "العشاء", adhan: "—", iqamah: "—" },
-];
+/** True once any iqamah time has been entered. */
+export function hasIqamah(): boolean {
+  return Object.values(iqamah).some(Boolean);
+}
 
 export type JumuahService = {
   label: string;
   location: string;
-  khutbah: string;
-  prayer: string;
+  khutbah: string | null;
+  prayer: string | null;
 };
 
-/** PLACEHOLDER — confirm how many khutbahs are held, where, and at what time. */
+/** PLACEHOLDER — confirm how many khutbahs are held and at what time. */
 export const jumuah: JumuahService[] = [
   {
-    label: "First Jumu'ah",
-    location: "Masjid Bilal West",
-    khutbah: "—",
-    prayer: "—",
-  },
-  {
-    label: "Second Jumu'ah",
+    label: "Jumu'ah",
     location: "Masjid Bilal South Side",
-    khutbah: "—",
-    prayer: "—",
+    khutbah: null,
+    prayer: null,
   },
 ];
+
+/**
+ * Optional Masjidal widget override.
+ *
+ * Publish a widget in the Masjidal platform, press "Embed", and paste the
+ * markup into `embedHtml`. When set, it replaces the calculated table
+ * entirely, and the loader script below is added to the prayer-times page.
+ *
+ * `embedHtml` is injected as raw HTML. That is safe only because it comes
+ * from this repository file, which only developers can edit — never wire it
+ * to user input, request data, or a URL parameter.
+ */
+export const masjidal = {
+  scriptSrc: "https://widgets.masjidal.com/timetable/v0/widget.js",
+  embedHtml: null as string | null,
+  /** Read from the environment; never committed. See .env.example. */
+  apiKey: process.env.NEXT_PUBLIC_MASJIDAL_API_KEY ?? null,
+};
+
+export function hasMasjidalWidget(): boolean {
+  return Boolean(masjidal.embedHtml);
+}

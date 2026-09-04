@@ -4,8 +4,8 @@ import { Container } from "@/components/ui/Container";
 import { Diamond } from "@/components/ui/StarFrame";
 import {
   contact,
-  featuredLocations,
   footerServices,
+  locations,
   primaryNav,
   site,
 } from "@/data/site";
@@ -91,7 +91,7 @@ export function Footer() {
 
             <h2 className="eyebrow mt-9 text-gold-400">Visit</h2>
             <ul className="mt-6 space-y-4 text-sm">
-              {featuredLocations.map((loc) => (
+              {locations.map((loc) => (
                 <li key={loc.slug} className="text-sand-200/80">
                   <span className="block text-sand-50">{loc.name}</span>
                   <span className="block">
