@@ -102,7 +102,7 @@ Only needed if you want to work offline or make code changes.
 
 1. Install [Node.js](https://nodejs.org) version 20 or newer (the LTS build).
 2. Download the code — on the repo page, **Code → Download ZIP**, or if you
-   use git: `git clone https://github.com/rahimali7/Inventory-Management-Web-Application.git`
+   use git: `git clone https://github.com/rahimali7/masjidbilal.git`
 3. In a terminal, inside the project folder:
 
 ```bash
