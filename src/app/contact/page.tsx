@@ -7,6 +7,8 @@ import { VerseBand } from "@/components/sections/VerseBand";
 import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 import { Reveal } from "@/components/motion/Reveal";
 import { Button, ArrowRight } from "@/components/ui/Button";
+import { IconCard } from "@/components/ui/IconCard";
+import { WhatsAppBand } from "@/components/sections/WhatsAppBand";
 import { services } from "@/data/services";
 import { contact, locations } from "@/data/site";
 
@@ -84,21 +86,15 @@ export default function ContactPage() {
             For janazah, call at any hour — day or night.
           </SectionHeading>
 
-          <Stagger className="mt-16 grid gap-8 lg:grid-cols-2">
+          <Stagger className="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {services.map((s) => (
-              <StaggerItem
-                key={s.id}
-                as="article"
-                id={s.anchor}
-                className="scroll-mt-32 rounded-2xl border border-navy-800/10 bg-white p-8 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-gold-400/50 hover:shadow-[0_20px_50px_-30px_rgba(0,30,66,0.4)] sm:p-10"
-              >
-                <h3 className="font-display text-2xl text-navy-800">{s.title}</h3>
-                <p className="mt-3 font-display text-lg italic text-gold-600 text-pretty">
-                  {s.summary}
-                </p>
-                <p className="mt-5 leading-relaxed text-muted text-pretty">
-                  {s.detail}
-                </p>
+              <StaggerItem key={s.id} id={s.anchor} className="scroll-mt-32">
+                <IconCard icon={s.icon} eyebrow={s.eyebrow} title={s.title}>
+                  <p className="font-display text-lg italic text-gold-600">
+                    {s.summary}
+                  </p>
+                  <p className="mt-4">{s.detail}</p>
+                </IconCard>
               </StaggerItem>
             ))}
           </Stagger>
@@ -121,6 +117,8 @@ export default function ContactPage() {
           </Reveal>
         </Container>
       </Section>
+
+      <WhatsAppBand />
 
       <VerseBand slug="know-one-another" />
     </>
