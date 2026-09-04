@@ -45,7 +45,7 @@ export const events: MasjidEvent[] = [
     date: "2026-09-25",
     time: "6:30 PM",
     category: "Education",
-    location: "Conference Room — Masjid Bilal West",
+    location: "Conference Room — Masjid Bilal South Side",
     summary:
       "A comprehensive seminar on building strong families within an Islamic framework.",
   },

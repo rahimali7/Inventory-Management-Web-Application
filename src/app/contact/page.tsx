@@ -8,7 +8,7 @@ import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 import { Reveal } from "@/components/motion/Reveal";
 import { Button, ArrowRight } from "@/components/ui/Button";
 import { services } from "@/data/services";
-import { contact, featuredLocations } from "@/data/site";
+import { contact, locations } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Contact & Services",
@@ -37,12 +37,12 @@ export default function ContactPage() {
             <ContactCard label="Hours" value={contact.hours} />
             <ContactCard
               label="Where"
-              value={`${featuredLocations[0]?.city ?? "Louisville"}, ${featuredLocations[0]?.region ?? "KY"}`}
+              value={`${locations[0]?.city ?? "Louisville"}, ${locations[0]?.region ?? "KY"}`}
             />
           </Stagger>
 
           <Stagger className="mt-16 grid gap-8 md:grid-cols-2">
-            {featuredLocations.map((loc) => (
+            {locations.map((loc) => (
               <StaggerItem
                 key={loc.slug}
                 as="article"

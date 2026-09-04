@@ -8,7 +8,7 @@ import { HistoryTimeline } from "@/components/sections/HistoryTimeline";
 import { Reveal } from "@/components/motion/Reveal";
 import { Stagger, StaggerItem } from "@/components/motion/Stagger";
 import { ImagePanel } from "@/components/ui/ImagePanel";
-import { featuredLocations } from "@/data/site";
+import { locations } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "About",
@@ -42,7 +42,7 @@ export default function AboutPage() {
       <Section tone="sand">
         <Container>
           <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
-            <Reveal from="right">
+            <Reveal from="up">
               <ImagePanel ratio="4/5" tone="navy" />
             </Reveal>
 
@@ -58,8 +58,8 @@ export default function AboutPage() {
                   and for the neighbour who walks in needing help.
                 </p>
                 <p className="mt-5">
-                  Both of our facilities are open twenty-four hours a day. There
-                  is no hour at which a Muslim in Louisville has nowhere to pray.
+                  The masjid is open twenty-four hours a day. There is no hour at
+                  which a Muslim in Louisville has nowhere to pray.
                 </p>
               </SectionHeading>
             </div>
@@ -72,7 +72,7 @@ export default function AboutPage() {
         <Container>
           <SectionHeading eyebrow="Visit" title="Where to" accent="find us" />
           <Stagger className="mt-14 grid gap-10 md:grid-cols-2">
-            {featuredLocations.map((loc) => (
+            {locations.map((loc) => (
               <StaggerItem key={loc.slug} as="article">
                 <h3 className="font-display text-2xl text-navy-800">
                   {loc.name}

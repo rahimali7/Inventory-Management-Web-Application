@@ -86,8 +86,8 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
             >
-              Two houses of worship serving Louisville&rsquo;s Muslim community —
-              daily prayer, Qur&rsquo;anic education, and care for one another.
+              A house of worship serving Louisville&rsquo;s Muslim community — daily
+              prayer, Qur&rsquo;anic education, and care for one another.
             </motion.p>
 
             <motion.div

@@ -1,46 +1,59 @@
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Stagger, StaggerItem } from "@/components/motion/Stagger";
+import { Reveal } from "@/components/motion/Reveal";
 import { ImagePanel } from "@/components/ui/ImagePanel";
-import { locations } from "@/data/site";
+import { Button, ArrowRight } from "@/components/ui/Button";
+import { contact, primaryLocation } from "@/data/site";
 
+/** Where to find the masjid. One location — see the note in data/site.ts. */
 export function LocationsBand() {
+  const loc = primaryLocation;
+
   return (
     <Section tone="white">
       <Container>
-        <SectionHeading
-          eyebrow="Two Locations"
-          title="One community,"
-          accent="two homes"
-        >
-          Masjid Bilal serves Louisville from two facilities, both open around
-          the clock for prayer, study, and anyone who needs a place to go.
-        </SectionHeading>
+        <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-20">
+          <Reveal from="up">
+            <ImagePanel ratio="4/5" tone="navy" />
+          </Reveal>
 
-        <Stagger className="mt-16 grid gap-8 md:grid-cols-2" stagger={0.12}>
-          {locations.map((loc, i) => (
-            <StaggerItem key={loc.slug} as="article" className="group">
-              <ImagePanel
-                ratio="16/9"
-                tone={i === 0 ? "navy" : "crimson"}
-                className="transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.015]"
-              />
-              <div className="mt-7">
-                <p className="eyebrow">Established {loc.established}</p>
-                <h3 className="mt-3 font-display text-2xl text-navy-800 sm:text-3xl">
+          <div>
+            <SectionHeading eyebrow="Visit" title="Where to" accent="find us">
+              {loc.blurb}
+            </SectionHeading>
+
+            <Reveal from="up" delay={0.15}>
+              <address className="mt-9 not-italic">
+                <span className="block font-display text-2xl text-navy-800">
                   {loc.name}
-                </h3>
-                <p className="mt-2 text-sm text-muted">
-                  {loc.street}, {loc.city}, {loc.region}
-                </p>
-                <p className="mt-4 max-w-md leading-relaxed text-muted text-pretty">
-                  {loc.blurb}
-                </p>
+                </span>
+                <span className="mt-2 block leading-relaxed text-muted">
+                  {loc.street}
+                  <br />
+                  {loc.city}, {loc.region} {loc.postalCode}
+                </span>
+              </address>
+
+              <p className="mt-6 text-muted">{contact.hours}</p>
+
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <Button
+                  href={`https://maps.google.com/?q=${encodeURIComponent(
+                    `${loc.street}, ${loc.city}, ${loc.region} ${loc.postalCode}`,
+                  )}`}
+                  external
+                >
+                  Open in Maps
+                  <ArrowRight />
+                </Button>
+                <Button href="/prayer-times" variant="secondary">
+                  Prayer times
+                </Button>
               </div>
-            </StaggerItem>
-          ))}
-        </Stagger>
+            </Reveal>
+          </div>
+        </div>
       </Container>
     </Section>
   );
